@@ -854,44 +854,38 @@ tr:last-child td { border-bottom: none; }
         if(el.textContent.indexOf(q) < 0) return;
         var te = el.querySelector('.card-title,.pname');
         var title = te ? te.textContent.replace(/[(（][^)）]+[)）]/g,'').trim() : '';
-        var key = sid+title;
-        if(seen[key]||!title) return;
+        var key = sid + title;
+        if(seen[key] || !title) return;
         seen[key] = 1;
-        var txt = el.textContent.replace(/\s+/g,' ');
-        var idx = txt.indexOf(q);
-        var ex = '';
-        if(idx >= 0){
-          var b = txt.slice(Math.max(0,idx-15),idx);
-          var a = txt.slice(idx+q.length, Math.min(txt.length,idx+q.length+35));
-          ex = '<div style="font-size:11.5px;color:#8fa898;line-height:1.6;margin-top:4px;">…'
-             + b
-             + '<mark style="background:#d1fae5;color:#065f46;border-radius:3px;padding:0 2px;">'
-             + q + '</mark>' + a + '…</div>';
-        }
-        results.push({sid:sid, name:tabMap[sid]||'', title:title, ex:ex});
+        results.push({sid:sid, secName:tabMap[sid]||'', el:el});
       });
     });
 
-    var out = '';
-    results.forEach(function(r){
-      out += '<div data-go="'+r.sid+'" style="background:#fff;border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1.5px solid #e4ede8;cursor:pointer;">'
-           + '<div style="display:flex;align-items:center;gap:8px;">'
-           + '<span style="font-size:10px;background:#e8f7ee;color:#3a9460;padding:1px 9px;border-radius:20px;white-space:nowrap;">'+r.name+'</span>'
-           + '<span style="font-size:13px;color:#1a2820;">'+r.title+'</span>'
-           + '</div>'+r.ex+'</div>';
-    });
-
-    if(!out){
-      out = '<div style="text-align:center;padding:36px 20px;color:#8fa898;">'
-          + '<div style="font-size:28px;margin-bottom:8px;">🔍</div>'
-          + '<div style="font-size:13px;">找不到「'+q+'」相關內容</div></div>';
+    var sr = document.getElementById('sr');
+    if(!results.length){
+      sr.innerHTML = '<div style="text-align:center;padding:36px 20px;color:#8fa898;">'
+        + '<div style="font-size:28px;margin-bottom:8px;">🔍</div>'
+        + '<div style="font-size:13px;">找不到「'+q+'」相關內容</div></div>';
+      return;
     }
-    document.getElementById('sr').innerHTML = out;
 
-    document.getElementById('sr').querySelectorAll('[data-go]').forEach(function(el){
-      el.addEventListener('mouseover', function(){ el.style.background='#f3fbf6'; });
-      el.addEventListener('mouseout', function(){ el.style.background='#fff'; });
-      el.addEventListener('click', function(){ showSec(el.getAttribute('data-go')); });
+    sr.innerHTML = '';
+    results.forEach(function(r){
+      var wrap = document.createElement('div');
+      wrap.style.cssText = 'margin-bottom:10px;';
+
+      // Section label
+      var label = document.createElement('div');
+      label.style.cssText = 'font-size:10px;color:#8fa898;letter-spacing:0.5px;margin-bottom:5px;';
+      label.textContent = r.secName;
+      wrap.appendChild(label);
+
+      // Clone the actual card
+      var clone = r.el.cloneNode(true);
+      clone.style.animation = 'none';
+      wrap.appendChild(clone);
+
+      sr.appendChild(wrap);
     });
   };
 })();
