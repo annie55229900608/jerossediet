@@ -284,6 +284,76 @@ tr:last-child td { border-bottom: none; }
 </head>
 <body>
 
+<!-- ── SPLASH SCREEN ── -->
+<div id="splash" style="
+  position:fixed;inset:0;z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(170deg,#c8f0d4 0%,#e8f8ee 40%,#f0fdf5 70%,#fafff8 100%);
+  transition:opacity .7s ease,transform .7s ease;
+  padding:40px 30px;
+">
+  <!-- floating orbs -->
+  <div style="position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(90,185,124,.18),transparent 70%);top:-60px;right:-60px;pointer-events:none;animation:orb1 4s ease-in-out infinite;"></div>
+  <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(120,200,140,.14),transparent 70%);bottom:-40px;left:-40px;pointer-events:none;animation:orb2 5s ease-in-out infinite;"></div>
+
+  <!-- leaf sparkle deco -->
+  <div style="font-size:28px;letter-spacing:12px;margin-bottom:28px;animation:fadeUp .8s .2s both;">🌿 ✦ 🌸 ✦ 🌿</div>
+
+  <!-- title -->
+  <div style="font-family:'Noto Sans TC',sans-serif;font-size:11px;font-weight:300;letter-spacing:5px;text-transform:uppercase;color:#5a9a72;margin-bottom:10px;animation:fadeUp .8s .4s both;">W E L C O M E</div>
+  <div style="font-family:'Noto Sans TC',sans-serif;font-size:36px;font-weight:300;color:#1a4a2a;letter-spacing:.5px;line-height:1.2;text-align:center;margin-bottom:8px;animation:fadeUp .8s .5s both;">
+    🌿 <strong style="font-weight:500;">纖體</strong>百寶庫
+  </div>
+  <div style="width:36px;height:1px;background:rgba(90,170,100,.35);margin:12px auto 16px;animation:fadeUp .8s .6s both;"></div>
+  <div style="font-family:'Noto Sans TC',sans-serif;font-size:12.5px;font-weight:300;color:#6aaa82;letter-spacing:.5px;text-align:center;line-height:1.8;animation:fadeUp .8s .7s both;">
+    婕樂纖系列完整指南<br>科學纖體 · 健康生活
+  </div>
+
+  <!-- dots + loading text -->
+  <div style="margin-top:32px;display:flex;align-items:center;gap:7px;animation:fadeUp .8s .9s both;">
+    <span style="width:6px;height:6px;border-radius:50%;background:#90c8a0;animation:dot1 1.2s 1s ease-in-out infinite;display:inline-block;"></span>
+    <span style="width:6px;height:6px;border-radius:50%;background:#90c8a0;animation:dot2 1.2s 1.2s ease-in-out infinite;display:inline-block;"></span>
+    <span style="width:6px;height:6px;border-radius:50%;background:#90c8a0;animation:dot3 1.2s 1.4s ease-in-out infinite;display:inline-block;"></span>
+  </div>
+
+  <!-- progress bar -->
+  <div style="position:absolute;bottom:48px;left:50%;transform:translateX(-50%);width:160px;">
+    <div style="height:2px;background:rgba(90,170,100,.15);border-radius:4px;overflow:hidden;">
+      <div id="splashBar" style="height:100%;width:0%;background:linear-gradient(90deg,#7ac898,#3a9460);border-radius:4px;transition:width 3s linear;"></div>
+    </div>
+    <div style="font-size:10px;color:#90b89a;text-align:center;margin-top:8px;letter-spacing:1.5px;font-family:'Noto Sans TC',sans-serif;">正在準備你的空間…</div>
+  </div>
+
+  <!-- bottom credit -->
+  <div style="position:absolute;bottom:20px;font-size:10px;color:rgba(90,150,100,.5);font-family:'Noto Sans TC',sans-serif;letter-spacing:1px;">DCT 纖體百寶庫</div>
+</div>
+
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes orb1{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,12px)}}
+@keyframes orb2{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-10px)}}
+@keyframes dot1{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes dot2{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes dot3{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+</style>
+
+<script>
+(function(){
+  // start progress bar immediately
+  setTimeout(function(){
+    document.getElementById('splashBar').style.width = '100%';
+  }, 50);
+  // fade out at 3s
+  setTimeout(function(){
+    var s = document.getElementById('splash');
+    s.style.opacity = '0';
+    s.style.transform = 'scale(1.02)';
+    setTimeout(function(){ s.style.display='none'; }, 700);
+  }, 3000);
+})();
+</script>
+
+
 <!-- ── HEADER ── -->
 <header class="hd">
   <div class="hd-eyebrow">🌿 JEROSSE · DCT</div>
