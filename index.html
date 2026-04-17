@@ -1530,7 +1530,7 @@ tr:last-child td { border-bottom: none; }
     var seen = {}, results = [];
     secs.forEach(function(sec){
       var sid = sec.id;
-      sec.querySelectorAll('.card,.pcard').forEach(function(el){
+      sec.querySelectorAll('.card,.pcard').forEach(function(el){ if(el.parentElement && el.parentElement.closest('.card,.pcard')) return;
         if(el.textContent.indexOf(q) < 0) return;
         var te = el.querySelector('.card-title,.pname');
         var title = te ? te.textContent.replace(/[(（][^)）]+[)）]/g,'').trim() : '';
